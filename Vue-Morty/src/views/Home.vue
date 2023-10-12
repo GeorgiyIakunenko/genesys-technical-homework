@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import Footer from '@/components/Footer.vue'
+import { getCharacters } from '@/api/api'
+import { onMounted } from 'vue'
+
+onMounted(async () => {
+  const res = await getCharacters()
+  console.log(res)
+})
 </script>
 
 <template>
