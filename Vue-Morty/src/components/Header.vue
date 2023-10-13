@@ -1,10 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import router from '@/router/index.js'
+</script>
 
 <template>
-  <header class="bg-cyan-200">
+  <header class="fixed w-full bg-cyan-200 py-2.5 shadow-sm shadow-cyan-500">
     <div class="container">
-      <div class="flex">
-        <img class="h-20 cursor-pointer" src="@/assets/images/genesys.png" alt="genesys logo" />
+      <div class="flex items-center justify-between">
+        <img
+          @click="router.push('/')"
+          class="h-14 cursor-pointer"
+          src="@/assets/images/Rick&Morty.png"
+          alt="rick and morty"
+        />
       </div>
     </div>
   </header>
