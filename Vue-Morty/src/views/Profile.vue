@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import { getCharacterById } from '@/api/api'
 import { useRoute } from 'vue-router'
 import type { Character } from '@/types/character'
+import router from '@/router'
 
 const route = useRoute()
 const id: number = parseInt(route.params.id as string)
@@ -22,34 +23,43 @@ onMounted(async () => {
 <template>
   <main>
     <div class="container">
-      <div v-if="character">
-        <div class="mx-auto w-fit rounded bg-neutral-100 p-4 shadow-xl shadow-neutral-400">
-          <div class="flex gap-7">
-            <img
-              :src="character.image"
-              :alt="character.name"
-              class="h-full rounded border-2 border-cyan-900"
-            />
-            <div class="character-details ml-4">
-              <div class="mb-8 flex flex-col gap-1">
-                <h1 class="text-4xl font-bold">{{ character.name }}</h1>
-                <p v-if="character.type" class="mb-1 text-sm text-gray-600">
-                  Type: {{ character.type }}
-                </p>
-                <p class="mb-1 text-xl">Status: {{ character.status }}</p>
-              </div>
+      <div class="mx-auto w-fit">
+        <button
+          @click.prevent="router.replace('/')"
+          class="mb-7 ml-1 rounded-xl bg-red-100 px-6 py-3"
+        >
+          Go Back
+        </button>
+        <div v-if="character">
+          <div class="rounded bg-neutral-100 p-4 shadow-xl shadow-neutral-400">
+            <div class="flex flex-col gap-7 md:flex-row">
+              <img
+                :src="character.image"
+                :alt="character.name"
+                class="h-full rounded border-2 border-cyan-900"
+              />
+              <div class="character-details ml-4">
+                <div class="mb-8 flex flex-col gap-1">
+                  <h1 class="text-2xl font-bold md:text-4xl">{{ character.name }}</h1>
+                  <p v-if="character.type" class="mb-1 text-sm text-gray-600">
+                    Type: {{ character.type }}
+                  </p>
+                  <p class="mb-1 text-xl">Status: {{ character.status }}</p>
+                </div>
 
-              <div class="flex flex-col gap-3 text-xl">
-                <p>Species: {{ character.species }}</p>
-                <p>Gender: {{ character.gender }}</p>
-                <p>Origin: {{ character.origin.name }}</p>
-                <p>Location: {{ character.location.name }}</p>
-                <p>Number of Episodes: {{ character.episode.length }}</p>
+                <div class="flex flex-col gap-3 md:text-xl">
+                  <p>Species: {{ character.species }}</p>
+                  <p>Gender: {{ character.gender }}</p>
+                  <p>Origin: {{ character.origin.name }}</p>
+                  <p>Location: {{ character.location.name }}</p>
+                  <p>Number of Episodes: {{ character.episode.length }}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <div class="flex items-center justify-center" v-if="!character || isLoading" role="status">
         <svg
           aria-hidden="true"
