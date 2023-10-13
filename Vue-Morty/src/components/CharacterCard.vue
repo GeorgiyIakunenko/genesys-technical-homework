@@ -12,7 +12,7 @@ const props = defineProps<{
     <img class="h-72 rounded-t-xl" :src="character.image" :alt="character.name" />
     <div class="rounded-b-xl bg-[#3c3e44] py-2">
       <h2
-        @click="router.push('profile/' + character.id)"
+        @click="router.replace(`/character/${character.id}/profile`)"
         class="cursor-pointer text-xl font-bold transition-all hover:text-amber-100"
       >
         {{ character.name }}

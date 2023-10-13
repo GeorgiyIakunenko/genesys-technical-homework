@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getCharacters } from '@/api/api'
+import { getCharactersByPage } from '@/api/api'
 import { onMounted, ref } from 'vue'
 import type { Character } from '@/types/character'
 import CharacterCard from '@/components/CharacterCard.vue'
@@ -7,7 +7,7 @@ import CharacterCard from '@/components/CharacterCard.vue'
 const characters = ref<Character[]>([])
 
 onMounted(async () => {
-  const res = await getCharacters()
+  const res = await getCharactersByPage()
   console.log(res)
   characters.value = res.data.results
 })

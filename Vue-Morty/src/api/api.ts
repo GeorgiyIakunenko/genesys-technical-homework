@@ -20,9 +20,9 @@ export type Response = {
 
 const BASE_URL = 'https://rickandmortyapi.com/api'
 
-export const getCharacters = async (): Promise<Response> => {
+export const getCharactersByPage = async (page: number = 1): Promise<Response> => {
   try {
-    const res = await axios.get(`${BASE_URL}/character`)
+    const res = await axios.get(`${BASE_URL}/character/?page=${page}`)
     if (res.status !== 200) {
       return {
         success: false,
