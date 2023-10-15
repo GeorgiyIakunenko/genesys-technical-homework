@@ -9,8 +9,7 @@ import Spinner from '@/components/Spinner.vue'
 
 const props = defineProps({
   id: {
-    type: Number,
-    required: true
+    type: Number
   }
 })
 
