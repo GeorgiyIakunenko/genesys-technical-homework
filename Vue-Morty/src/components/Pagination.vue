@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import { VueAwesomePaginate } from 'vue-awesome-paginate'
-import { getCharactersByPage } from '@/api/api'
-const onClickHandler = async (page: number) => {
-  const res = await getCharactersByPage(page)
-  console.log(res.data)
-}
+import { useCharacterStore } from '@/stores'
 
-const currentPage = ref(1)
-
-const isShowBreakpointButtons = ref(window.innerWidth > 640)
-const maxPagesShown = computed(() => (isShowBreakpointButtons.value ? 5 : 3))
 const emit = defineEmits<{
   changePage: [page: number]
 }>()
+const onClickHandler = (page: number) => {
+  console.log(page)
+  emit('changePage', page)
+}
+
+const isShowBreakpointButtons = ref(window.innerWidth > 640)
+const maxPagesShown = computed(() => (isShowBreakpointButtons.value ? 5 : 3))
 
 window.onresize = () => {
   isShowBreakpointButtons.value = window.innerWidth > 640
@@ -22,16 +21,14 @@ window.onresize = () => {
 
 <template>
   <vue-awesome-paginate
-    :total-items="821"
+    v-if="useCharacterStore().info"
+    :total-items="useCharacterStore().info.count"
     :items-per-page="20"
     :max-pages-shown="maxPagesShown"
-    :showBreakpointButtons="isShowBreakpointButtons"
-    v-model="currentPage"
-    :on-click="
-      () => {
-        emit('changePage', currentPage)
-      }
-    "
+    :show-ending-buttons="true"
+    :showBreakpointButtons="false"
+    v-model="useCharacterStore().currentPage"
+    :on-click="onClickHandler"
     :hide-prev-next-when-ends="true"
   />
 </template>

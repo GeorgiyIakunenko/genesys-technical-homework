@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import router from '@/router/index.js'
+import { changePage } from '@/utils/changePage'
 </script>
 
 <template>
@@ -7,7 +7,7 @@ import router from '@/router/index.js'
     <div class="container">
       <div class="flex items-center justify-between">
         <img
-          @click="router.push('/')"
+          @click="changePage(1)"
           class="h-14 cursor-pointer"
           src="@/assets/images/Rick&Morty.png"
           alt="rick and morty"

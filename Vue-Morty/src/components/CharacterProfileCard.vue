@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Character } from '@/types/character'
+
 const props = defineProps<{
   character: Character
 }>()

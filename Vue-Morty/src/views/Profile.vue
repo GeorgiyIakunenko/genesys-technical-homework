@@ -1,23 +1,22 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { getCharacterById } from '@/api/api'
-import { useRoute } from 'vue-router'
-import type { Character } from '@/types/character'
 import router from '@/router'
 import CharacterProfileCard from '@/components/CharacterProfileCard.vue'
+import { useCharacterStore } from '@/stores'
 
-const route = useRoute()
-const id: number = parseInt(route.params.id as string)
-const character = ref<Character | null>(null)
+const props = defineProps({
+  id: {
+    type: Number,
+    required: true
+  }
+})
+
+const characterStore = useCharacterStore()
 const isLoading = ref<Boolean>(false)
 
 onMounted(async () => {
   isLoading.value = true
-  const res = await getCharacterById(id)
-  if (res.success) {
-    character.value = res.data
-    console.log(character.value)
-  }
+  await characterStore.getById(props.id)
   isLoading.value = false
 })
 </script>
@@ -26,17 +25,21 @@ onMounted(async () => {
     <div class="container">
       <div class="mx-auto w-fit">
         <button
-          @click.prevent="router.replace('/')"
+          @click.prevent="router.replace('/page/' + characterStore.currentPage)"
           class="mb-7 ml-1 rounded-xl bg-red-100 px-6 py-3"
         >
           Go Back
         </button>
-        <div v-if="character">
-          <CharacterProfileCard :character="character" />
+        <div v-if="characterStore.currentCharacter && !isLoading">
+          <CharacterProfileCard :character="characterStore.currentCharacter" />
         </div>
       </div>
 
-      <div class="flex items-center justify-center" v-if="!character || isLoading" role="status">
+      <div
+        class="flex items-center justify-center"
+        v-if="!characterStore.currentCharacter || isLoading"
+        role="status"
+      >
         <svg
           aria-hidden="true"
           class="h-24 w-24 animate-spin fill-cyan-200 text-gray-200 dark:text-gray-600"
