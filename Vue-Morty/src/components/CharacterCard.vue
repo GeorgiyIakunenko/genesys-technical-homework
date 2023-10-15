@@ -8,8 +8,8 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="flex w-full flex-col text-center text-white">
-    <img class="rounded-t-xl md:h-72" :src="character.image" :alt="character.name" />
+  <div class="flex flex-col text-center text-white md:w-72">
+    <img class="rounded-t-xl md:h-72 md:w-72" :src="character.image" :alt="character.name" />
     <div class="flex h-full flex-grow flex-col rounded-b-xl bg-[#3c3e44] px-0.5 py-2">
       <h2
         @click="router.replace(`/character/${character.id}/profile`)"
