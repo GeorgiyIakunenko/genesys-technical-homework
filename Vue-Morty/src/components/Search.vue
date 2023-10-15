@@ -20,7 +20,11 @@ const onInput = () => {
       placeholder="Search by name"
       @input="onInput"
     />
-    <Button @click="resetSearch">Reset</Button>
+    <Button
+      :class="{ 'pointer-events-none opacity-50': !characterStore.searchName }"
+      @click="resetSearch"
+      >Reset</Button
+    >
   </div>
 </template>
 

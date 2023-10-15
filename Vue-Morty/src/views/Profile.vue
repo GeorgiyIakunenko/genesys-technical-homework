@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
+import { useCharacterStore } from '@/stores'
 import router from '@/router'
 import CharacterProfileCard from '@/components/CharacterProfileCard.vue'
-import { useCharacterStore } from '@/stores'
 import Button from '@/components/Button.vue'
 import Spinner from '@/components/Spinner.vue'
 

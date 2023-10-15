@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import CharacterCard from '@/components/CharacterCard.vue'
-import Pagination from '@/components/Pagination.vue'
 import { useCharacterStore } from '@/stores'
 import { changePage } from '@/utils/changePage'
+import CharacterCard from '@/components/CharacterCard.vue'
+import Pagination from '@/components/Pagination.vue'
 import Search from '@/components/Search.vue'
 import Spinner from '@/components/Spinner.vue'
 
@@ -41,14 +41,17 @@ onMounted(async () => {
         />
       </div>
       <div
+        v-else-if="!characterStore.isLoading && characterStore.characters.length === 0"
+        class="mt-14 flex flex-col items-center justify-center"
+      >
+        <img class="mb-3 h-72" src="@/assets/images/noSearchResults.png" alt="no search results" />
+        <h2 class="text-2xl font-bold">No search results</h2>
+      </div>
+      <div
         v-else-if="characterStore.isLoading"
         class="mt-20 flex min-h-full items-center justify-center"
       >
         <Spinner />
-      </div>
-      <div v-else class="mt-14 flex flex-col items-center justify-center">
-        <img class="mb-3 h-72" src="@/assets/images/noSearchResults.png" alt="no search results" />
-        <h2 class="text-2xl font-bold">No search result</h2>
       </div>
     </div>
   </main>
