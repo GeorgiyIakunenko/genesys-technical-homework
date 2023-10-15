@@ -5,6 +5,7 @@ import Pagination from '@/components/Pagination.vue'
 import { useCharacterStore } from '@/stores'
 import { changePage } from '@/utils/changePage'
 import { resetSearch } from '@/utils/resetSearch'
+import router from '@/router'
 
 const props = defineProps({
   id: {
@@ -14,6 +15,11 @@ const props = defineProps({
 })
 
 const characterStore = useCharacterStore()
+
+const onInput = () => {
+  router.replace(`/`)
+  characterStore.getByPageAndName()
+}
 
 onMounted(async () => {
   await characterStore.getByPageAndName(props.id)
@@ -28,7 +34,7 @@ console.log(props)
       <input
         class="rounded-xl bg-cyan-200 px-3 py-3 text-center"
         v-model="characterStore.searchName"
-        @input="characterStore.getByPageAndName(props.id)"
+        @input="onInput"
       />
       <button class="rounded-xl bg-neutral-700 px-6 text-white" @click="resetSearch">Reset</button>
     </div>
@@ -41,9 +47,12 @@ console.log(props)
           <CharacterCard v-for="character in characterStore.characters" :character="character" />
         </div>
         <Pagination
-          @change-page="changePage"
-          :total-items="821"
+          :number-of-buttons-on-desktop="5"
+          :number-of-buttons-on-mobile="3"
           :current-page="characterStore.currentPage"
+          :total-pages="characterStore.info.pages"
+          :change-page="changePage"
+          class="mx-auto w-fit"
         />
       </div>
     </div>

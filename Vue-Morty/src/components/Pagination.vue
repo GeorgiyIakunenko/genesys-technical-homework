@@ -1,71 +1,121 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { VueAwesomePaginate } from 'vue-awesome-paginate'
-import { useCharacterStore } from '@/stores'
+import { computed, onMounted, ref } from 'vue'
 
-const emit = defineEmits<{
-  changePage: [page: number]
+const props = defineProps<{
+  currentPage: number
+  totalPages: number
+  numberOfButtonsOnDesktop?: number
+  numberOfButtonsOnMobile?: number
+  changePage: (page: number) => void
 }>()
-const onClickHandler = (page: number) => {
-  console.log(page)
-  emit('changePage', page)
+
+const numberOfPages = ref<number>(3)
+
+const updateDisplayedPages = () => {
+  if (window.innerWidth < 768) {
+    props.numberOfButtonsOnMobile
+      ? (numberOfPages.value = props.numberOfButtonsOnMobile)
+      : (numberOfPages.value = 3)
+  } else {
+    props.numberOfButtonsOnDesktop
+      ? (numberOfPages.value = props.numberOfButtonsOnDesktop)
+      : (numberOfPages.value = 5)
+  }
 }
 
-const isShowBreakpointButtons = ref(window.innerWidth > 640)
-const maxPagesShown = computed(() => (isShowBreakpointButtons.value ? 5 : 3))
+onMounted(() => {
+  updateDisplayedPages()
+  window.addEventListener('resize', updateDisplayedPages)
+})
 
-window.onresize = () => {
-  isShowBreakpointButtons.value = window.innerWidth > 640
-}
+const displayedPages = computed(() => {
+  const half = Math.floor(numberOfPages.value / 2)
+  const start = Math.max(1, props.currentPage - half)
+  const end = Math.min(props.totalPages, start + numberOfPages.value - 1)
+
+  const pages = []
+  for (let i = start; i <= end; i++) {
+    pages.push(i)
+  }
+  return pages
+})
 </script>
 
 <template>
-  <vue-awesome-paginate
-    v-if="useCharacterStore().info"
-    :total-items="useCharacterStore().info.count"
-    :items-per-page="20"
-    :max-pages-shown="maxPagesShown"
-    :show-ending-buttons="true"
-    :showBreakpointButtons="false"
-    v-model="useCharacterStore().currentPage"
-    :on-click="onClickHandler"
-    :hide-prev-next-when-ends="true"
-  />
+  <div v-if="totalPages > 1" class="flex gap-2 md:gap-3">
+    <div
+      @click="changePage(1)"
+      class="pagination-button first-arrow-button arrow"
+      :class="{ disabled: currentPage < 3 }"
+    >
+      {{ '<<' }}
+    </div>
+    <div
+      @click="changePage(currentPage - 1)"
+      class="pagination-button prev arrow"
+      :class="{ disabled: currentPage < 2 }"
+    >
+      {{ '<' }}
+    </div>
+    <div
+      v-for="page in displayedPages"
+      class="pagination-button"
+      @click="changePage(page)"
+      :class="{ active: page === currentPage }"
+    >
+      {{ page }}
+    </div>
+    <div
+      @click="changePage(currentPage + 1)"
+      class="pagination-button next arrow"
+      :class="{ disabled: currentPage === totalPages }"
+    >
+      {{ '>' }}
+    </div>
+    <div
+      @click="changePage(totalPages)"
+      class="pagination-button last-arrow-button arrow"
+      :class="{
+        disabled: currentPage === totalPages
+      }"
+    >
+      {{ '>>' }}
+    </div>
+  </div>
 </template>
 
-<style>
-ul#componentContainer {
-  display: flex;
-  margin: 25px auto 0;
-}
-
-.pagination-container {
-  display: flex;
-  width: fit-content;
-  margin: 0 auto;
-  column-gap: 10px;
-}
-.paginate-buttons {
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
+<style scoped>
+.pagination-button {
   cursor: pointer;
-  background-color: rgb(242, 242, 242);
-  border: 1px solid rgb(217, 217, 217);
-  color: black;
-}
-.paginate-buttons:hover {
-  background-color: #d8d8d8;
-}
-
-.active-page {
-  display: block;
-  background-color: #3498db;
-  border: 1px solid #3498db;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  border-radius: 0.5rem;
+  background-color: #0097a7;
   color: white;
 }
 
-.active-page:hover {
-  background-color: #2988c8;
+.pagination-button.active {
+  background-color: rgb(115, 115, 115);
+  pointer-events: none;
+}
+
+.disabled {
+  display: none;
+}
+
+.arrow {
+  background-color: rgb(82, 82, 82);
+}
+
+@media (max-width: 580px) {
+  .first-arrow-button {
+    display: none;
+  }
+  .last-arrow-button {
+    display: none;
+  }
 }
 </style>

@@ -17,8 +17,8 @@ const props = defineProps<{
       <div class="character-details ml-4">
         <div class="mb-8 flex flex-col gap-1">
           <h1 class="text-2xl font-bold md:text-4xl">{{ character.name }}</h1>
-          <p v-if="character.type" class="mb-1 text-sm text-gray-600">Type: {{ character.type }}</p>
-          <p class="mb-1 text-xl">Status: {{ character.status }}</p>
+          <p v-if="character.type" class="mb-1 text-lg text-gray-600">Type: {{ character.type }}</p>
+          <p class="mb-1 text-lg text-gray-600">Status: {{ character.status }}</p>
         </div>
 
         <div class="flex flex-col gap-3 md:text-xl">
