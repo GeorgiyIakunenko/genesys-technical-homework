@@ -4,7 +4,7 @@ import router from '@/router'
 import CharacterProfileCard from '@/components/CharacterProfileCard.vue'
 import { useCharacterStore } from '@/stores'
 import Button from '@/components/Button.vue'
-import Loading from '@/components/Loading.vue'
+import Spinner from '@/components/Spinner.vue'
 
 const props = defineProps({
   id: {
@@ -38,7 +38,7 @@ onMounted(async () => {
         v-if="!characterStore.currentCharacter || characterStore.isLoading"
         role="status"
       >
-        <Loading class="mt-14" />
+        <Spinner class="mt-20" />
       </div>
     </div>
   </main>

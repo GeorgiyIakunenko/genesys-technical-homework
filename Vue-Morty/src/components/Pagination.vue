@@ -76,7 +76,7 @@ const displayedPages = computed(() => {
       @click="changePage(totalPages)"
       class="pagination-button last-arrow-button arrow"
       :class="{
-        disabled: currentPage === totalPages
+        disabled: totalPages - currentPage < 2
       }"
     >
       {{ '>>' }}

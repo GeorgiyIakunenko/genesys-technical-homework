@@ -5,7 +5,7 @@ import Pagination from '@/components/Pagination.vue'
 import { useCharacterStore } from '@/stores'
 import { changePage } from '@/utils/changePage'
 import Search from '@/components/Search.vue'
-import Loading from '@/components/Loading.vue'
+import Spinner from '@/components/Spinner.vue'
 
 const props = defineProps({
   id: {
@@ -42,9 +42,9 @@ onMounted(async () => {
       </div>
       <div
         v-else-if="characterStore.isLoading"
-        class="mt-14 flex min-h-full items-center justify-center"
+        class="mt-20 flex min-h-full items-center justify-center"
       >
-        <Loading />
+        <Spinner />
       </div>
       <div v-else class="mt-14 flex flex-col items-center justify-center">
         <img class="mb-3 h-72" src="@/assets/images/noSearchResults.png" alt="no search results" />

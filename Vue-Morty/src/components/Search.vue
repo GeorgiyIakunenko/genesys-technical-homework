@@ -15,7 +15,7 @@ const onInput = () => {
 <template>
   <div class="mx-auto flex w-fit gap-3">
     <input
-      class="rounded-xl bg-neutral-300 px-3 py-2 text-center placeholder-neutral-800 shadow-sm focus:placeholder-transparent"
+      class="rounded-xl bg-neutral-300 px-4 py-2.5 text-center placeholder-neutral-800 shadow-sm focus:placeholder-transparent xs:px-10"
       v-model="characterStore.searchName"
       placeholder="Search by name"
       @input="onInput"
