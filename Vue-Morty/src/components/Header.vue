@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { changePage } from '@/utils/changePage'
+import { resetSearch } from '@/utils/resetSearch'
+import router from '@/router'
+
+const goToHomePage = async () => {
+  await router.replace('/')
+  await resetSearch()
+}
 </script>
 
 <template>
@@ -7,7 +13,7 @@ import { changePage } from '@/utils/changePage'
     <div class="container">
       <div class="flex items-center justify-between">
         <img
-          @click="changePage(1)"
+          @click="goToHomePage"
           class="h-14 cursor-pointer"
           src="@/assets/images/Rick&Morty.png"
           alt="rick and morty"

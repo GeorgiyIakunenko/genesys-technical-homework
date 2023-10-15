@@ -1,13 +1,14 @@
-// services/characterService.ts
-
 import { type CharactersApiResponse, type CharacterApiResponse } from '@/types/response'
 import { handleResponse } from '@/services/utils/responseHandlingService'
 import { handleError } from '@/services/utils/errorHandlingService'
 import axiosInstance from '@/services/api/apiConfig'
 
-export const getCharactersByPage = async (page: number = 1): Promise<CharactersApiResponse> => {
+export const getCharactersByPageAndName = async (
+  page: number = 1,
+  name: string = ''
+): Promise<CharactersApiResponse> => {
   try {
-    const res = await axiosInstance.get(`/character/?page=${page}`)
+    const res = await axiosInstance.get(`/character/?page=${page}&name=${name}`)
     return handleResponse<CharactersApiResponse>(res)
   } catch (error) {
     return handleError<CharactersApiResponse>(error)
