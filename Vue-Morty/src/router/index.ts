@@ -7,15 +7,17 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'parent',
       component: Home,
-      redirect: '/page/1'
-    },
-    {
-      path: '/page/:id',
-      name: 'page',
-      component: Home,
-      props: (route) => ({ id: Number(route.params.id) })
+      redirect: '/page/1',
+      children: [
+        {
+          path: 'page/:id',
+          name: 'home',
+          component: Home,
+          props: (route) => ({ id: Number(route.params.id) })
+        }
+      ]
     },
     {
       path: '/character/:id/profile',
