@@ -6,7 +6,7 @@
       class="container flex flex-col items-center justify-center text-center font-medium sm:flex-row"
     >
       <img class="h-14 cursor-pointer" src="@/assets/images/genesys.png" alt="genesys logo" />
-      <p class="text-sm sm:text-base">Created by Georgiy Iakunenko</p>
+      <p class="text-sm sm:text-base">Created by Georgiy Iakunenko using Vue.js</p>
     </div>
   </footer>
 </template>

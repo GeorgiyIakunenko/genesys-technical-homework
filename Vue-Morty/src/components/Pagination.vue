@@ -86,6 +86,7 @@ const displayedPages = computed(() => {
 
 <style scoped>
 .pagination-button {
+  border: 1px solid #0074d9;
   cursor: pointer;
   width: 40px;
   display: flex;
@@ -93,12 +94,13 @@ const displayedPages = computed(() => {
   align-items: center;
   height: 40px;
   border-radius: 0.5rem;
-  background-color: #0097a7;
-  color: white;
+  background-color: #ffffff;
+  color: #0074d9;
 }
 
 .pagination-button.active {
-  background-color: rgb(115, 115, 115);
+  background-color: #0074d9;
+  color: #ffffff;
   pointer-events: none;
 }
 
@@ -107,7 +109,8 @@ const displayedPages = computed(() => {
 }
 
 .arrow {
-  background-color: rgb(82, 82, 82);
+  background-color: #0074d9;
+  color: #ffffff;
 }
 
 @media (max-width: 580px) {

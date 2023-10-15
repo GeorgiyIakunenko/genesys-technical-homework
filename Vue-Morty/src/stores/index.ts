@@ -10,6 +10,7 @@ export const useCharacterStore = defineStore('character', () => {
   const currentPage = ref<number>(1)
   const currentCharacter = ref<Character>()
   const searchName = ref<string>('')
+  const isLoading = ref<boolean>(false)
   const info = reactive<Info>({
     count: 0,
     pages: 0,
@@ -26,42 +27,49 @@ export const useCharacterStore = defineStore('character', () => {
 
   const getByPageAndName = async (page: number = 1) => {
     try {
+      isLoading.value = true
       const res: CharactersApiResponse = await getCharactersByPageAndName(page, searchName.value)
       if (res.success) {
         characters.value = res.data.results
         setInfo(res.data.info)
         currentPage.value = page
-        console.log(info)
+        isLoading.value = false
         return true
       }
 
       if (res.data.request.status === 404) {
         characters.value = []
       }
-
-      return false
     } catch (error) {
-      return false
+      isLoading.value = false
+    } finally {
+      isLoading.value = false
     }
+    return false
   }
 
   const getById = async (id: number) => {
     try {
+      isLoading.value = true
       const res: CharacterApiResponse = await getCharacterById(id)
       if (res.success) {
         currentCharacter.value = res.data
+        isLoading.value = false
         return true
       }
-      return false
     } catch (error) {
       return false
+    } finally {
+      isLoading.value = false
     }
+    return false
   }
 
   return {
     characters,
     currentPage,
     info,
+    isLoading,
     currentCharacter,
     searchName,
     getById,

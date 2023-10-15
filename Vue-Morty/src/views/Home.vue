@@ -4,8 +4,8 @@ import CharacterCard from '@/components/CharacterCard.vue'
 import Pagination from '@/components/Pagination.vue'
 import { useCharacterStore } from '@/stores'
 import { changePage } from '@/utils/changePage'
-import { resetSearch } from '@/utils/resetSearch'
-import router from '@/router'
+import Search from '@/components/Search.vue'
+import Loading from '@/components/Loading.vue'
 
 const props = defineProps({
   id: {
@@ -16,31 +16,16 @@ const props = defineProps({
 
 const characterStore = useCharacterStore()
 
-const onInput = () => {
-  router.replace(`/`)
-  characterStore.getByPageAndName()
-}
-
 onMounted(async () => {
   await characterStore.getByPageAndName(props.id)
 })
-
-console.log(props)
 </script>
 
 <template>
   <main>
-    <div class="mx-auto mb-5 flex w-fit gap-3">
-      <input
-        class="rounded-xl bg-cyan-200 px-3 py-3 text-center"
-        v-model="characterStore.searchName"
-        @input="onInput"
-      />
-      <button class="rounded-xl bg-neutral-700 px-6 text-white" @click="resetSearch">Reset</button>
-    </div>
-
+    <Search class="mb-12"></Search>
     <div class="container">
-      <div v-if="characterStore.characters">
+      <div v-if="characterStore.characters.length > 0 && !characterStore.isLoading">
         <div
           class="mx-auto mb-14 grid w-fit grid-cols-1 gap-x-2.5 gap-y-5 xs:grid-cols-2 sm:gap-x-4 sm:gap-y-8 lg:grid-cols-3 xl:grid-cols-4"
         >
@@ -54,6 +39,16 @@ console.log(props)
           :change-page="changePage"
           class="mx-auto w-fit"
         />
+      </div>
+      <div
+        v-else-if="characterStore.isLoading"
+        class="mt-14 flex min-h-full items-center justify-center"
+      >
+        <Loading />
+      </div>
+      <div v-else class="mt-14 flex flex-col items-center justify-center">
+        <img class="mb-3 h-72" src="@/assets/images/noSearchResults.png" alt="no search results" />
+        <h2 class="text-2xl font-bold">No search result</h2>
       </div>
     </div>
   </main>
