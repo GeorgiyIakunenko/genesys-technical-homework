@@ -1,9 +1,3 @@
-## Genesys Technical Homework
-
-### Objective
-
-Using any frontend framework or library, implement a solution for the task below.
-
 ### Task
 
 1. **Create a Single Page App** that will have two pages: Home and Profile.
@@ -19,7 +13,8 @@ Using any frontend framework or library, implement a solution for the task below
 
 ### About the project
 
-This project was built using Vue.js + typescript and TailwindCSS. 
+This project was built using Vue.js + typescript and TailwindCSS.
+[See the project](https://genesys-technical-homework.vercel.app/)
 
 
 ### How to run the project?
