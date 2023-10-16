@@ -2,7 +2,7 @@
 
 ### Objective
 
-Using any frontend framework or library, implement a solution for the task below. You have 7 days to complete the assignment. Please upload your code to GitHub and send the link back to us at Genesys.
+Using any frontend framework or library, implement a solution for the task below.
 
 ### Task
 
@@ -14,4 +14,16 @@ Using any frontend framework or library, implement a solution for the task below
 **Bonus tasks**:
 
 - Use pagination in the main table (optional).
-- Create an input field on the Home page to search among character names. It should have an `onChange` event, and you should only show rows that contain the searched string (optional).
+- Create an input field on the Home page to search among character names. It should have an `onChange` event, and you should only show rows that contain the searched string (optional)
+
+
+### About the project
+
+This project was built using Vue.js + typescript and TailwindCSS. 
+
+
+### How to run the project?
+
+1. Clone the repository
+2. Run `npm install` to install the dependencies
+3. Run `npm run dev` to start the project
