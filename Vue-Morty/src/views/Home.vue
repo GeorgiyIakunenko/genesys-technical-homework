@@ -5,7 +5,6 @@ import { changePage } from '@/utils/changePage'
 import CharacterCard from '@/components/CharacterCard.vue'
 import Pagination from '@/components/Pagination.vue'
 import Search from '@/components/Search.vue'
-import Spinner from '@/components/Spinner.vue'
 
 const props = defineProps({
   id: {
@@ -44,13 +43,7 @@ onMounted(async () => {
         class="mt-14 flex flex-col items-center justify-center"
       >
         <img class="mb-3 h-72" src="@/assets/images/noSearchResults.png" alt="no search results" />
-        <h2 class="text-2xl font-bold">No search results</h2>
-      </div>
-      <div
-        v-else-if="characterStore.isLoading"
-        class="mt-20 flex min-h-full items-center justify-center"
-      >
-        <Spinner />
+        <h2 class="text-3xl font-bold">No results</h2>
       </div>
     </div>
   </main>

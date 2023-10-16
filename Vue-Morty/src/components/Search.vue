@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { resetSearch } from '@/utils/resetSearch'
 import { useCharacterStore } from '@/stores'
+
 import Button from '@/components/Button.vue'
 import router from '@/router'
 
